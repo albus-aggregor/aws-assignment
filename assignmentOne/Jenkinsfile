@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage("Checkout") {
             steps {
-                git branch: '$params.Branch', url: ''
+                git branch: '$params.Branch', url: 'https://github.com/albus-aggregor/aws-assignment.git'
             } 
         }
 
