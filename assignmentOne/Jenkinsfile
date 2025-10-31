@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    parameters { string(name: 'Branch', defaultValue: 'develop', description: 'Enter the branch name') }
+
+
+    stages {
+        stage("Checkout") {
+            steps {
+                git branch: '$params.Branch', url: ''
+            } 
+        }
+
+        stage("Npm Install & test") {
+            steps {
+                sh '''
+                    npm i
+                    npm test
+                '''
+                script {
+                    def result = readJSON file: 'reports/jest-results.json'
+                    def failedTests = result.numFailedTests
+                    
+                    if(failedTests > 0) {
+                        echo '${failedTests} tests failed'
+                    } else {
+                        echo 'All ${result.numPassedTests} tests passed'
+                    }
+                }
+            }
+        }
+    }
+}

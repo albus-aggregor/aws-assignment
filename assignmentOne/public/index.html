@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Node.js UI App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      background: #007bff;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Node.js App with UI</h1>
+  <button onclick="getMessage()">Get Message</button>
+  <p id="output"></p>
+
+  <script>
+    async function getMessage() {
+      const res = await fetch('/api/message');
+      const data = await res.json();
+      document.getElementById('output').textContent = data.message;
+    }
+  </script>
+</body>
+</html>

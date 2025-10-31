@@ -1,0 +1,17 @@
+{
+  "name": "node-ui-app",
+  "version": "1.0.0",
+  "description": "Node.js app with simple UI and test",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "jest --json --outputFile=reports/jest-results.json"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "supertest": "^6.3.3"
+  }
+}
