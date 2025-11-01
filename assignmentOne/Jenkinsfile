@@ -3,17 +3,17 @@ pipeline {
 
     parameters { string(name: 'Branch', defaultValue: 'develop', description: 'Enter the branch name') }
 
+    tools {
+        nodejs 'Node-23'
+    }
 
     stages {
-        stage("Checkout") {
-            steps {
-                git branch: '$params.Branch', url: 'https://github.com/albus-aggregor/aws-assignment.git'
-            } 
-        }
-
         stage("Npm Install & test") {
             steps {
                 sh '''
+                    node --version
+                    cd assignmentOne
+                    ls -ltr
                     npm i
                     npm test
                 '''
