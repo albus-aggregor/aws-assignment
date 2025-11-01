@@ -7,6 +7,10 @@ pipeline {
         nodejs 'Node-23'
     }
 
+    environment {
+        IMAGE_NAME = "assignmentOne"
+    }
+
     stages {
         stage("Npm Install & test") {
             steps {
@@ -18,15 +22,28 @@ pipeline {
                     npm test
                 '''
                 script {
-                    def result = readJSON file: 'reports/jest-results.json'
+                    def result = readJSON file: 'assignmentOne/reports/jest-results.json'
                     def failedTests = result.numFailedTests
                     
                     if(failedTests > 0) {
-                        echo '${failedTests} tests failed'
+                        echo "${failedTests} tests failed"
                     } else {
-                        echo 'All ${result.numPassedTests} tests passed'
+                        echo "All ${result.numPassedTests} tests passed"
                     }
                 }
+            }
+        }
+
+        stage("Docker build") {
+            steps {
+                sh "docker build -t ${env.IMAGE_NAME} ."
+            }
+        }
+
+        stage("Docker Run") {
+            steps {
+                sh "docker run -d -p 3000:3000 --name assignmentOne ${env.IMAGE_NAME}"
+                sh 'sleep 5 && docker ps'
             }
         }
     }
