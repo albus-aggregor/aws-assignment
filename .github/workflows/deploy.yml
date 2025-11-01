@@ -36,6 +36,7 @@ jobs:
         run: |
           kubectl apply -f assignmentFour/k8s/deployment.yml
           kubectl apply -f assignmentFour/k8s/service.yml
+          kubectl get pods
           kubectl rollout status deployment/python-app
 
       - name: Get Service URL
