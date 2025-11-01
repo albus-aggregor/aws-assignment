@@ -4,11 +4,12 @@ CI/CD Pipeline with Jenkins + Docker
     * Use Dockerfile inside setup to build and run the Jenkins
     * Use the below commands to build and run the Jenkins
         1. docker build -t jenkins .
-        2. docker run --name jenkins-blueocean --restart=on-failure --detach \
-            --network jenkins --env DOCKER_HOST=tcp://docker:2376 \
-            --env DOCKER_CERT_PATH=/certs/client --env DOCKER_TLS_VERIFY=1 \
+        2. docker run -d \
+            --name jenkins-blueocean \
+            --network jenkins \
             --publish 8080:8080 --publish 50000:50000 \
+            --volume /var/run/docker.sock:/var/run/docker.sock \
             --volume jenkins-data:/var/jenkins_home \
-            --volume jenkins-docker-certs:/certs/client:ro \
-            jenkins
+            --user root \
+            mac-jenkins bash -c "groupadd -for -g 1 docker && usermod -aG docker jenkins && su jenkins -c '/usr/local/bin/jenkins.sh'"
     

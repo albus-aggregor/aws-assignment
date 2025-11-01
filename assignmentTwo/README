@@ -1,0 +1,32 @@
+# 🚀 Kubernetes Deployment: Python Website
+
+This repository contains Kubernetes manifests to deploy a simple web application (`python-website`) on **Minikube** or **kind**.
+
+---
+
+## 📦 Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [Minikube](https://minikube.sigs.k8s.io/docs/) **or** [kind](https://kind.sigs.k8s.io/)
+- Source code for your app with a Dockerfile
+
+---
+
+## ⚙️ 1. Start Your Cluster
+
+### 🧩 Option A — Minikube
+```bash
+minikube start
+
+eval $(minikube docker-env)
+docker build -t python-website:latest .
+
+
+kubectl apply -f deployment.yml
+kubectl apply -f service.yml
+
+
+kubectl get svc python-website-service
+
+minikube service python-website-service

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-website
+  labels:
+    app: python-website
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: python-website
+  template:
+    metadata:
+      labels:
+        app: python-website
+    spec:
+      containers:
+        - name: python-website
+          image: python-website:latest
+          imagePullPolicy: Never  # Use this when using a local image (Minikube/kind)
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
