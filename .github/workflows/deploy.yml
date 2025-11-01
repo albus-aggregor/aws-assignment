@@ -30,7 +30,7 @@ jobs:
       - name: Use Minikube Docker
         run: |
           eval $(minikube docker-env)
-          docker build -t python-app:latest .
+          docker build -t python-app:latest -f assignmentFour/Dockerfile .
 
       - name: Deploy to Minikube
         run: |
