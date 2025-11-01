@@ -19,8 +19,8 @@ jobs:
 
       - name: Install dependencies and run tests
         run: |
-          pip install -r requirements.txt
-          python -m py_compile app.py
+          pip install -r assignmentFour/requirements.txt
+          python -m py_compile assignmentFour/app.py
 
       - name: Start Minikube
         uses: medyagh/setup-minikube@latest
