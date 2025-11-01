@@ -34,8 +34,8 @@ jobs:
 
       - name: Deploy to Minikube
         run: |
-          kubectl apply -f assignmentFour/k8s/deployment.yaml
-          kubectl apply -f assignmentFour/k8s/service.yaml
+          kubectl apply -f assignmentFour/k8s/deployment.yml
+          kubectl apply -f assignmentFour/k8s/service.yml
           kubectl rollout status deployment/python-app
 
       - name: Get Service URL
