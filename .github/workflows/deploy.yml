@@ -1,0 +1,42 @@
+name: CI/CD Python App on Minikube
+
+on:
+  push:
+    branches: [ "develop" ]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies and run tests
+        run: |
+          pip install -r requirements.txt
+          python -m py_compile app.py
+
+      - name: Start Minikube
+        uses: medyagh/setup-minikube@latest
+        with:
+          driver: docker
+
+      - name: Use Minikube Docker
+        run: |
+          eval $(minikube docker-env)
+          docker build -t python-app:latest .
+
+      - name: Deploy to Minikube
+        run: |
+          kubectl apply -f assignmentFour/k8s/deployment.yaml
+          kubectl apply -f assignmentFour/k8s/service.yaml
+          kubectl rollout status deployment/python-app
+
+      - name: Get Service URL
+        run: minikube service python-service --url
