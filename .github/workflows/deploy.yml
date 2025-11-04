@@ -19,23 +19,35 @@ jobs:
 
       - name: Install dependencies and run tests
         run: |
-          pip install -r assignmentFour/requirements.txt
-          python -m py_compile assignmentFour/app.py
+          pip install -r assignment-4/requirements.txt
+          python -m py_compile assignment-4/app.py
+
+      - name: Build Docker image
+        run: |
+          docker build -t python-app:latest -f assignment-4/Dockerfile .
+
+      - name: Tag image for Docker Hub
+        run: |
+          docker tag python-app:latest ${{ secrets.DOCKER_USERNAME }}/python-app:latest
+
+      - name: Login to Docker Hub
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Push image to Docker Hub
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/python-app:latest
+
 
       - name: Start Minikube
         uses: medyagh/setup-minikube@latest
         with:
           driver: docker
 
-      - name: Use Minikube Docker
-        run: |
-          eval $(minikube docker-env)
-          docker build -t python-app:latest -f assignmentFour/Dockerfile .
-
       - name: Deploy to Minikube
         run: |
-          kubectl apply -f assignmentFour/k8s/deployment.yml
-          kubectl apply -f assignmentFour/k8s/service.yml
+          kubectl apply -f assignment-4/k8s/deployment.yml
+          kubectl apply -f assignment-4/k8s/service.yml
           kubectl get pods
           kubectl rollout status deployment/python-app
 
