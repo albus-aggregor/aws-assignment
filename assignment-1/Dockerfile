@@ -8,7 +8,7 @@ SHELL ["/bin/sh", "-c"]
 
 RUN npm install
 
-COPY . .
+COPY assignment-1/. .
 
 FROM node:20-alpine
 
