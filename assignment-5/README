@@ -1,0 +1,8 @@
+5. Infrastructure Automation with Shell + Docker Compose
+
+The Python app contains only two routes: / and /health. It is containerized using Docker.
+    Using Docker Compose:
+        * Created services for Jenkins, Redis, Nginx, and the Sample App.
+        * Added health checks and used depends_on in the Compose file to manage service dependencies.
+        * Created a script file that checks whether Docker and Docker Compose are installed.
+        * If both are available, the script runs the Docker Compose setup.

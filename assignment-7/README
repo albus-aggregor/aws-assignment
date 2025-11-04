@@ -18,6 +18,7 @@ Buggy App RCA
             raise Exception("Simulated random failure!")
     This intentionally raises an unhandled exception, causing Flask to return a 500 Internal Server Error.
     There’s no error-handling logic to catch and manage this exception gracefully.
+    ![alt text](image.png)
 * Proposed Fix
     Add proper exception handling to prevent the app from crashing.
     Fixed Code (Conceptual)

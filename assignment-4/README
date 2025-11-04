@@ -1,0 +1,10 @@
+4. End-to-End CI/CD: GitHub Actions + Docker + K8s
+
+Created a deploy.yml file for the CI/CD pipeline. Whenever changes are pushed to the develop branch, the pipeline will automatically trigger.
+
+Steps in the GitHub Actions workflow:
+  1. Check out the repository and set up Python.
+  2. Install the required packages from requirements.txt.
+  3. Build the Docker image using the Dockerfile.
+  4. Push the Docker image to Docker Hub.
+  5. Use Minikube to pull the image from Docker Hub and deploy it using the Deployment and Service manifests.

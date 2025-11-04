@@ -1,32 +1,24 @@
-# 🚀 Kubernetes Deployment: Python Website
+2. Kubernetes Deployment with Minikube
 
-This repository contains Kubernetes manifests to deploy a simple web application (`python-website`) on **Minikube** or **kind**.
+Download kubectl:
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
 
----
+Download Minikube:
+    curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-darwin-arm64
+    sudo install minikube-darwin-arm64 /usr/local/bin/minikube
 
-## 📦 Prerequisites
+Once the installation is complete, start a single-node Kubernetes cluster:
+    minikube start
 
-- [Docker](https://docs.docker.com/get-docker/)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
-- [Minikube](https://minikube.sigs.k8s.io/docs/) **or** [kind](https://kind.sigs.k8s.io/)
-- Source code for your app with a Dockerfile
+Build the Docker image for the Python website:
+    docker build -t python-website:latest .
 
----
+Load the local Docker image into Minikube:
+    minikube image load python-website:latest
 
-## ⚙️ 1. Start Your Cluster
+Deploy the application using Kubernetes manifests:
+    kubectl apply -f deployment.yml
+    kubectl apply -f service.yml
 
-### 🧩 Option A — Minikube
-```bash
-minikube start
-
-eval $(minikube docker-env)
-docker build -t python-website:latest .
-
-
-kubectl apply -f deployment.yml
-kubectl apply -f service.yml
-
-
-kubectl get svc python-website-service
-
-minikube service python-website-service
+Get the service URL to access your application:
+    minikube service python-website-service --url

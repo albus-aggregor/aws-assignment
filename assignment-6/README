@@ -1,0 +1,6 @@
+6. Monitoring Stack with Prometheus + Grafana
+
+    * I used the official Docker images for Grafana and Prometheus.
+    * In this setup, I have a Python app that generates custom metrics, which are scraped by Prometheus through its scrape_config configuration.
+    * Then, I configured Prometheus as a data source in Grafana to visualize these metrics.
+    * I’ve attached the exported Grafana dashboard JSON and a screenshot of the dashboard.

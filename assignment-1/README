@@ -1,14 +1,21 @@
 CI/CD Pipeline with Jenkins + Docker
 
-1. Set up Jenkins locally (use Docker)
-    * Use Dockerfile inside setup to build and run the Jenkins
-    * Use the below commands to build and run the Jenkins
-        1. docker build -t jenkins .
-        2. docker run -d \
-            --name jenkins-local \
-            -p 8080:8080 -p 50000:50000 \
-            -v jenkins_home:/var/jenkins_home \
-            -v /var/run/docker.sock:/var/run/docker.sock \
-            -u root \
-            doc-jenkins
+1. Set up Jenkins locally (using Docker)
+    Note: Since I'm using macOS, I set up Jenkins using the Docker-in-Docker (DinD) concept.
+    Use the Dockerfile inside the setup directory to build and run Jenkins.
+    Run the following commands to build and start Jenkins:
+        docker build -t doc-jenkins .
+        docker run -d \
+        --name jenkins-local \
+        -p 8080:8080 -p 50000:50000 \
+        -v jenkins_home:/var/jenkins_home \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        -u root \
+        doc-jenkins
+2. Once Jenkins is running, log in and install the necessary plugins.
+3. Create a new folder, then create a pipeline linked to your Git repository.
+4. Also, add Git credentials in Jenkins for authentication.
+5. Configure the pipeline by adding the Jenkinsfile in the configuration section.
+6. Finally, trigger the pipeline to start the build process.
+
     
