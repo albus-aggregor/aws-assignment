@@ -8,7 +8,7 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = "assignmentOne"
+        IMAGE_NAME = "assignmentone"
     }
 
     stages {
@@ -36,7 +36,9 @@ pipeline {
 
         stage("Docker build") {
             steps {
-                sh "docker build -t ${env.IMAGE_NAME} ."
+                sh "docker ps"
+                sh "ls -ltr"
+                sh "docker build -t ${env.IMAGE_NAME} -f assignment-1/Dockerfile ."
             }
         }
 

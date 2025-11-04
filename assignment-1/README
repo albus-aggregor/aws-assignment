@@ -5,11 +5,10 @@ CI/CD Pipeline with Jenkins + Docker
     * Use the below commands to build and run the Jenkins
         1. docker build -t jenkins .
         2. docker run -d \
-            --name jenkins-blueocean \
-            --network jenkins \
-            --publish 8080:8080 --publish 50000:50000 \
-            --volume /var/run/docker.sock:/var/run/docker.sock \
-            --volume jenkins-data:/var/jenkins_home \
-            --user root \
-            one-jenkins bash -c "groupadd -for -g 1 docker && usermod -aG docker jenkins && su jenkins -c '/usr/local/bin/jenkins.sh'"
+            --name jenkins-local \
+            -p 8080:8080 -p 50000:50000 \
+            -v jenkins_home:/var/jenkins_home \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -u root \
+            doc-jenkins
     
