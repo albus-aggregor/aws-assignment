@@ -17,7 +17,7 @@ spec:
       containers:
         - name: python-website
           image: python-website:latest
-          imagePullPolicy: Never  # Use this when using a local image (Minikube/kind)
+          imagePullPolicy: Never
           ports:
             - containerPort: 8000
           resources:
